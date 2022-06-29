@@ -15,7 +15,7 @@ import com.semicolon.africa.ui_storedesign.auth.viewmodel.AuthViewModel
 fun GroceriesSwitch(
     authViewModel: AuthViewModel = hiltViewModel()
 ){
-    val isAuthenticated = false
+    val isAuthenticated = authViewModel.state.value.isAuthenticated
 
     if (isAuthenticated){
         Column(

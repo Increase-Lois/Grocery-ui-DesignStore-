@@ -1,7 +1,12 @@
 package com.semicolon.africa.ui_storedesign.di
 
+import android.app.Application
+import androidx.room.Room
+import com.semicolon.africa.ui_storedesign.data.local.GroceriesDatabase
 import com.semicolon.africa.ui_storedesign.data.remote.Api
+import com.semicolon.africa.ui_storedesign.data.repositories.GroceryRepositoryImpl
 import com.semicolon.africa.ui_storedesign.data.repositories.UserRepositoryImpl
+import com.semicolon.africa.ui_storedesign.domain.repositories.GroceryRepository
 import com.semicolon.africa.ui_storedesign.domain.repositories.UserRepository
 import com.semicolon.africa.ui_storedesign.domain.usecases.auth.AuthenticationUseCases
 import com.semicolon.africa.ui_storedesign.domain.usecases.auth.Login
@@ -46,5 +51,21 @@ object AppModule {
                 userRepository = repository
             )
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideGroceriesDatabase(app:Application):GroceriesDatabase{
+        return Room.databaseBuilder(
+            app,
+        GroceriesDatabase::class.java,
+        GroceriesDatabase.DATABASE_NAME
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGroceriesRepository(db:GroceriesDatabase):GroceryRepository{
+        return GroceryRepositoryImpl(groceryDao =db.groceryDao)
     }
 }
