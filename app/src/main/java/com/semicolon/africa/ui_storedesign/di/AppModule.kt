@@ -36,7 +36,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideUserRepository(api:Api):UserRepository{
-        return UserRepositoryImpl(api =api)
+        return UserRepositoryImpl(api = api)
     }
     @Provides
     @Singleton
